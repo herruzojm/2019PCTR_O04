@@ -19,12 +19,12 @@ public class Ball {
 		//TODO Depend of image size
 		IMG_TAM_X = 32;
 		IMG_TAM_Y = 32;
-
 		
 		x = Billiards.Width/4-16;
 		y = Billiards.Height/2-16;
 		v = 5;
 		fi =  Math.random() * Math.PI * 2;
+		IsValidPosition();
 	}
 
 	public void move() {
@@ -40,7 +40,7 @@ public class Ball {
 		
 		reflect();
 		
-		//TODO Check postcondition
+		IsValidPosition();
 	}
 
 	private void reflect() {
@@ -58,6 +58,15 @@ public class Ball {
 		}
 	}
 
+	/**
+	 * Checks if the ball position is within the board limits
+	 */
+	private void IsValidPosition() {
+		assert x > Board.LEFTBOARD && x < Board.RIGHTBOARD &&
+		y > Board.TOPBOARD && y < Board.BOTTOMBOARD :
+		"Invalid position: ball is outside the board";	
+	}
+	
 	public int getX() {
 		return (int)x;
 	}
@@ -84,6 +93,5 @@ public class Ball {
 
 	public Image getImage() {
 		return image;
-	}
-
+	}	
 }
