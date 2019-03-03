@@ -24,7 +24,7 @@ public class Ball {
 		y = Billiards.Height/2-16;
 		v = 5;
 		fi =  Math.random() * Math.PI * 2;
-		IsValidPosition();
+		assertPositionIsValid();
 	}
 
 	public void move() {
@@ -40,7 +40,7 @@ public class Ball {
 		
 		reflect();
 		
-		IsValidPosition();
+		assertPositionIsValid();
 	}
 
 	private void reflect() {
@@ -61,7 +61,7 @@ public class Ball {
 	/**
 	 * Checks if the ball position is within the board limits
 	 */
-	private void IsValidPosition() {
+	private void assertPositionIsValid() {
 		assert x > Board.LEFTBOARD && x < Board.RIGHTBOARD &&
 		y > Board.TOPBOARD && y < Board.BOTTOMBOARD :
 		"Invalid position: ball is outside the board";	
