@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
@@ -23,7 +24,8 @@ public class Billiards extends JFrame {
 	// TODO update with number of group label. See practice statement.
 	private final int N_BALL = 2;
 	private Ball[] balls;
-
+	private Thread[] threads;
+	
 	public Billiards() {
 
 		board = new Board();
@@ -58,22 +60,54 @@ public class Billiards extends JFrame {
 		// TODO init balls
 	}
 
+	/**
+	 * Creates a Thread to simulate the movement of a ball
+	 * @param b Ball whose movement needs to be simulated
+	 * @return Created Thread
+	 */
+	private Thread createThread(Ball b) {
+		Runnable runloop = new Runnable() {
+			public void run() {
+				try {
+					// infinite loop: always running until stopped by user action
+					for(;;) {
+						// first, we move the ball
+						b.move();
+						// then, we redraw the board to show the ball's new position
+						board.repaint();
+						// finally, we sleep the thread for some time
+						TimeUnit.MILLISECONDS.sleep(15);
+					}
+				} catch (InterruptedException e) {
+					return;
+				}
+			}
+		};
+		return new Thread(runloop);
+	}
+	
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when start button is pushed
-
+			if (threads == null) {
+				// initialize the array and iterate over it
+				threads = new Thread[N_BALL];
+				for (int i = 0; i < threads.length; ++i) {
+					// creating the threads and starting them
+					threads[i] = createThread(balls[i]);
+					threads[i].start();
+				}
+			}
 		}
 	}
 
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed
-
+			// TODO Code is executed when stop button is pushed			
 		}
-	}
-
+	}	
+	
 	public static void main(String[] args) {
 		new Billiards();
 	}
