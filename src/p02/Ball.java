@@ -85,10 +85,12 @@ public class Ball {
 
 	public void setX(double x) {
 		this.x = x;
+		assertPositionIsValid();
 	}
 
 	public void setY(double y) {
 		this.y = y;
+		assertPositionIsValid();
 	}
 
 	public Image getImage() {
