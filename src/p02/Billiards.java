@@ -97,7 +97,7 @@ public class Billiards extends JFrame {
 			if (threads == null) {
 				// initialize the array and iterate over it
 				threads = new Thread[N_BALL];
-				for (int i = 0; i < threads.length; ++i) {
+				for (int i = 0; i < threads.length; i++) {
 					// creating the threads and starting them
 					threads[i] = createThread(balls[i]);
 					threads[i].start();
@@ -109,7 +109,12 @@ public class Billiards extends JFrame {
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed			
+			if (threads != null) {
+				for (int i = 0; i < threads.length; i++) {
+					threads[i].interrupt();
+				}
+				threads = null;
+			}	
 		}
 	}	
 	
