@@ -20,7 +20,7 @@ public class Billiards extends JFrame {
 	private JButton b_start, b_stop;
 
 	private Board board;
-
+ 
 	private final int N_BALL = 7;
 	private Ball[] balls;
 	private Thread[] threads;
@@ -56,14 +56,14 @@ public class Billiards extends JFrame {
 	}
 
 	private void initBalls() {
-		balls = new Ball[N_BALL];
-		
-		for(int i = 0; i < balls.length; i++) {
-			balls[i] = new Ball();
-		}
-		
-		board.setBalls(balls);	
-	}
+		  balls = new Ball[N_BALL];
+		  
+		  for(int i = 0; i < balls.length; i++) {
+		   balls[i] = new Ball();
+		  }
+		  
+		  board.setBalls(balls); 
+		 }
 
 	/**
 	 * Creates a Thread to simulate the movement of a ball
@@ -97,7 +97,7 @@ public class Billiards extends JFrame {
 			if (threads == null) {
 				// initialize the array and iterate over it
 				threads = new Thread[N_BALL];
-				for (int i = 0; i < threads.length; i++) {
+				for (int i = 0; i < threads.length; ++i) {
 					// creating the threads and starting them
 					threads[i] = createThread(balls[i]);
 					threads[i].start();
@@ -116,8 +116,8 @@ public class Billiards extends JFrame {
 				threads = null;
 			}	
 		}
-	}	
-	
+	} 
+
 	public static void main(String[] args) {
 		new Billiards();
 	}
